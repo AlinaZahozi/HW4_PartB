@@ -14,9 +14,11 @@ namespace ariel{
     Team::Team(Character *leader):
     leader(leader){
         if (leader == nullptr) throw invalid_argument("Error: Leader is null");
+        if(leader->get_Is_leader() == true) throw ("Error: Leader is null");
         team.fill(nullptr);
         players_number = 0;
         add(leader);
+        leader->setIs_leader(true);
     }
 
     // Initializes a Team object as a copy of another

@@ -13,6 +13,7 @@ class Character {
         Point location;  // Private member variable for the character's location
         int hit_points;  // Private member variable for the character's hit points
         bool is_alive;  // Private member variable for the character's alive status
+        bool is_leader;
 
     public:
         // Constructors:
@@ -35,12 +36,14 @@ class Character {
         Point getLocation();  // Returns the character's location
         int getHit_points();  // Returns the character's hit points
         bool getIs_alive();
+        bool get_Is_leader();
 
         // Setters:
         void setName(string);  // Sets the character's name
         void setLocation(Point);  // Sets the character's location
         void setHit_points(int);  // Sets the character's hit points
         void setIs_alive(bool);
+        void setIs_leader(bool);
 
         // To string:
         virtual string toString();  // Returns a string representation of the character
@@ -49,7 +52,7 @@ class Character {
         bool isAlive();
 
         // Calculates the distance to another character
-        double distance(const Character& other) const;
+        double distance(const Character *other) const;
 
         // Decreases the character's hit points by a certain amount
         void hit(int points);

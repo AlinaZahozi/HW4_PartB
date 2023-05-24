@@ -52,7 +52,7 @@ namespace ariel {
         if(!this->getIs_alive()) throw std::invalid_argument("Ninja is already dead");
 
         // Calculate the distance to the rival
-        double distanceToRival = this->distance(*rival);
+        double distanceToRival = this->distance(rival);
 
         // If the rival is less than 1 meter away, slash the rival
         if(distanceToRival < 1.0) rival->hit(40);

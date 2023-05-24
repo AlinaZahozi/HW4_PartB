@@ -12,7 +12,8 @@ namespace ariel{
     name(name),
     location(location),
     hit_points(hit_points),
-    is_alive(true){}
+    is_alive(true),
+    is_leader(false){}
 
     // Copy constructor
     Character::Character(const Character& other):
@@ -67,6 +68,10 @@ namespace ariel{
         return this->is_alive;
     }
 
+    bool Character::get_Is_leader(){
+        return this->is_leader;
+    }
+
     // Setters:
     void Character::setName(string name){
         this->name = name;
@@ -84,6 +89,10 @@ namespace ariel{
         this->is_alive = alive;
     }
 
+    void Character::setIs_leader(bool leader){
+        this->is_leader = leader;
+    }
+
     // To string:
     string Character::toString(){
         if(this->is_alive == true) return "Character name: " + this->name + ", location: " + this->location.toString() + ", hit points: " + to_string(this->hit_points) + ", still alive\n";
@@ -97,8 +106,8 @@ namespace ariel{
     }
 
     // Calculates the distance to another character
-    double Character::distance(const Character& other) const{
-        return this->location.distance(other.location);
+    double Character::distance(const Character *other) const{
+        return this->location.distance(other->location);
     }
 
     // Decreases the character's hit points by a certain amount

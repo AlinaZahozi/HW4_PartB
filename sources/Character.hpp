@@ -12,8 +12,8 @@ class Character {
         string name;  // protected member variable for the character's name
         Point location;  // protected member variable for the character's location
         int hit_points;  // protected member variable for the character's hit points
-        bool is_alive;  // protected member variable for the character's alive status
-        bool is_availible;
+        bool is_alive;  // protected member variable for the character's life status
+        bool is_availible; // protected member variable for the character's availability status
 
     public:
         // Constructors:
@@ -25,7 +25,7 @@ class Character {
         Character &operator=(const Character &other);  // Copy assignment operator
         Character &operator=(Character &&other) noexcept;  // Move assignment operator
 
-        // Pure virtual function for making a copy of this object
+        // Virtual function for making a copy of this object
         virtual Character* Copy() const = 0;
         
         // Destructor:
@@ -35,15 +35,15 @@ class Character {
         string getName();  // Returns the character's name
         Point getLocation() const;  // Returns the character's location
         int getHit_points();  // Returns the character's hit points
-        bool getIs_alive();
-        bool get_is_availible();
+        bool getIs_alive(); // Returns the character's life status
+        bool get_is_availible(); // Returns the character's availability status
 
         // Setters:
         void setName(string);  // Sets the character's name
         void setLocation(Point);  // Sets the character's location
         void setHit_points(int);  // Sets the character's hit points
-        void setIs_alive(bool);
-        void set_is_availible(bool);
+        void setIs_alive(bool); // Sets the character's life status
+        void set_is_availible(bool); // Sets the character's availability status
 
         // To string:
         virtual string toString();  // Returns a string representation of the character

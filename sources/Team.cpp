@@ -174,7 +174,7 @@ namespace ariel{
     void Team::print(){
         for (size_t i = 0; i < 10; i++){
             if (team[i] != nullptr){
-               if(i == 0) cout << "The leader of the team: " + team[i]->getName() + "\n";
+               if(i == 0) cout << "\nThe leader of the team: " + leader->getName() + "\n";
                team[i]->print();
             }
         }

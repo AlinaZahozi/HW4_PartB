@@ -56,10 +56,4 @@ namespace ariel{
         if(isAlive() == true) return "C: " + this->getName() + ", location: " + this->getLocation().toString() + ", hit points: " + to_string(this->getHit_points()) + ", still alive\n";
         else return "C: (" + this->getName() + "), already dead\n";
     }
-
-    /*// Overriding the print function from the Character class to print the cowboy
-    string Cowboy::print() {
-        //need to perform
-        return "";
-    }*/
 }

@@ -99,8 +99,8 @@ namespace ariel{
 
     // To string:
     string Character::toString(){
-        if(this->is_alive == true) return "Character name: " + this->name + ", location: " + this->location.toString() + ", hit points: " + to_string(this->hit_points) + ", still alive\n";
-        else return "Character name: (" + this->name + "), already dead\n";
+        if(this->is_alive == true) return "Character name: " + this->name + ", location: " + this->location.toString() + ", hit points: " + to_string(this->hit_points) + ", still alive";
+        else return "Character name: (" + this->name + "), already dead";
     }
 
     // Checks if the character is alive
@@ -125,7 +125,7 @@ namespace ariel{
 
     // Prints the character
     string Character::print(){
-        cout << this->toString() << endl;
+        cout << this->toString();
         return this->toString();
     }
 

@@ -8,7 +8,7 @@ namespace ariel{
 
 class Character {  
 
-    private:
+    protected:
         string name;  // Private member variable for the character's name
         Point location;  // Private member variable for the character's location
         int hit_points;  // Private member variable for the character's hit points
@@ -16,7 +16,6 @@ class Character {
 
     public:
         // Constructors:
-        Character();  // Default constructor
         Character(string name, Point location, int hit_points);  // Parameterized constructor
         Character(const Character &other);  // Copy constructor
         Character(Character &&other) noexcept;  // Move constructor
@@ -35,20 +34,22 @@ class Character {
         string getName();  // Returns the character's name
         Point getLocation();  // Returns the character's location
         int getHit_points();  // Returns the character's hit points
+        bool getIs_alive();
 
         // Setters:
         void setName(string);  // Sets the character's name
         void setLocation(Point);  // Sets the character's location
         void setHit_points(int);  // Sets the character's hit points
+        void setIs_alive(bool);
 
         // To string:
-        string toString() const;  // Returns a string representation of the character
+        virtual string toString();  // Returns a string representation of the character
 
         // Checks if the character is alive
         bool isAlive();
 
         // Calculates the distance to another character
-        double distance(Character *other);
+        double distance(const Character& other) const;
 
         // Decreases the character's hit points by a certain amount
         void hit(int points);

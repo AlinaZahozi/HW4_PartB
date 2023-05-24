@@ -6,7 +6,7 @@ using namespace std;
 namespace ariel{ 
 
 class Point { 
-    private:
+    protected:
         double x_cordinta;  // Private member variable for the x-coordinate
         double y_cordinta;  // Private member variable for the y-coordinate
 
@@ -27,13 +27,13 @@ class Point {
         string toString() const;  // Returns a string representation of the point
 
         // Calculates the distance to another point
-        double distance(Point other);
+        double distance(const Point &other) const;
 
         // Prints the point
         void print();
 
         // Moves towards another point by a specified distance
-        Point moveTowards(Point src , Point dst , double dist);
+        Point moveTowards(const Point &src, const Point &dst, double dist) const;
 };
 
 }

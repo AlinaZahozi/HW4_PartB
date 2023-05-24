@@ -9,7 +9,7 @@ namespace ariel {
 
     class Ninja : public Character {  // Defines the Ninja class that inherits from the Character class
 
-        private:
+        protected:
 
             int speed;  // Private member variable for the speed of the ninja
             
@@ -35,8 +35,10 @@ namespace ariel {
             // Function for the ninja to slash the rival character
             void slash(Character* rival);
 
+            string toString() override;
+
             // Overriding the print function from the Character class to print the ninja
-            string print() override;
+            //string print() override;
 
             // Overriding the getType function from the Character class to get the type of the ninja
             const std::type_info& getType() const override;

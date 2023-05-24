@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include <array>
+#include <algorithm>
+#include <limits>
 #include "Point.hpp"
 #include "Character.hpp"
 #include "Cowboy.hpp"
@@ -17,9 +19,10 @@ namespace ariel {
 
     class Team {
 
-    private:
-        std::array<Character*, MAXIMUM_PLAYERS> team; // Array to hold pointers to Character objects (team members)
+    protected:
+        array<Character*, MAXIMUM_PLAYERS> team; // Array to hold pointers to Character objects (team members)
         Character* leader; // Pointer to the Character object that is the team leader
+        int players_number;
 
     public:
         // Constructor:
@@ -32,7 +35,7 @@ namespace ariel {
         Team(Team&& other) noexcept; // Initializes a Team object by moving another
 
         // Destructor:
-        virtual ~Team(); // Destroys a Team object and releases any allocated resources
+        ~Team(); // Destroys a Team object and releases any allocated resources
 
         // Copy Assignment Operator:
         Team& operator=(const Team& other); // Assigns the current Team object the same state as another
@@ -42,7 +45,7 @@ namespace ariel {
 
         // Member Functions:
         virtual void add(Character* player); // Adds a new player to the team
-        void attack(Team* rival); // Makes the team attack a rival team
+        virtual void attack(Team* rival); // Makes the team attack a rival team
         virtual int stillAlive(); // Checks if there are any players in the team that are still alive
         virtual void print(); // Prints information about the team
     };

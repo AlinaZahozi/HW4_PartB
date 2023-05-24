@@ -7,15 +7,6 @@ using namespace std;
 
 namespace ariel{
 
-    // Default constructor
-    Character::Character(){
-        this->name = "No name";
-        Point center(0,0);
-        this->location = center;
-        this->hit_points = 0;
-        this->is_alive = true;
-    }
-
     // Parameterized constructor
     Character::Character(string name, Point location, int hit_points): 
     name(name),
@@ -72,6 +63,10 @@ namespace ariel{
         return this->hit_points;
     }
 
+    bool Character::getIs_alive(){
+        return this->is_alive;
+    }
+
     // Setters:
     void Character::setName(string name){
         this->name = name;
@@ -85,31 +80,41 @@ namespace ariel{
         this->hit_points = points;
     }
 
+    void Character::setIs_alive(bool alive){
+        this->is_alive = alive;
+    }
+
     // To string:
-    string Character::toString() const{
-        //need to perform
-        return "";
+    string Character::toString(){
+        if(this->is_alive == true) return "Character name: " + this->name + ", location: " + this->location.toString() + ", hit points: " + to_string(this->hit_points) + ", still alive\n";
+        else return "Character name: (" + this->name + "), already dead\n";
     }
 
     // Checks if the character is alive
     bool Character::isAlive(){
-        return true;
+        if(this->is_alive == true)return true;
+        return false;
     }
 
     // Calculates the distance to another character
-    double Character::distance(Character *player){
-        return 0;
+    double Character::distance(const Character& other) const{
+        return this->location.distance(other.location);
     }
 
     // Decreases the character's hit points by a certain amount
     void Character::hit(int points){
-        return;
+        if(points < 0) throw std::invalid_argument("Points cannot be negative");
+        if(points > this->hit_points){
+            this->hit_points = 0;
+            this->is_alive = false;
+        }
+        else this->hit_points -= points;
     }
 
     // Prints the character
     string Character::print(){
-        //need to perform
-        return "";
+        cout << this->toString() << endl;
+        return this->toString();
     }
 
     // Returns the type info of the character

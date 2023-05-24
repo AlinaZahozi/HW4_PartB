@@ -36,9 +36,11 @@ namespace ariel {
 
             // Function to reload the cowboy's bullets
             void reload();
+
+            string toString() override;
             
             // Overriding the print function from the Character class to print the cowboy
-            string print() override;
+            //string print() override;
     };
 
 }

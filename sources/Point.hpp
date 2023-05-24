@@ -27,7 +27,7 @@ class Point {
         string toString() const;  // Returns a string representation of the point
 
         // Calculates the distance to another point
-        double distance(const Point &other) const;
+        double distance(const Point& other) const;
 
         // Prints the point
         void print();

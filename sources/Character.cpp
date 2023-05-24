@@ -13,21 +13,23 @@ namespace ariel{
     location(location),
     hit_points(hit_points),
     is_alive(true),
-    is_leader(false){}
+    is_availible(true){}
 
     // Copy constructor
     Character::Character(const Character& other):
     name(other.name),
     location(other.location),
     hit_points(other.hit_points),
-    is_alive(other.is_alive){}
+    is_alive(other.is_alive),
+    is_availible(other.is_availible){}
 
     // Move constructor
     Character::Character(Character &&other) noexcept:
     name(move(other.name)),
     location(move(other.location)),
     hit_points(move(other.hit_points)),
-    is_alive(move(other.is_alive)){}
+    is_alive(move(other.is_alive)),
+    is_availible(move(other.is_availible)){}
 
     // Destructor:
     Character::~Character() = default;
@@ -38,6 +40,7 @@ namespace ariel{
         location = other.location;
         hit_points = other.hit_points;
         is_alive = other.is_alive;
+        is_availible = other.is_availible;
         return *this;
     }
 
@@ -47,6 +50,7 @@ namespace ariel{
         location = move(other.location);
         hit_points = move(other.hit_points);
         is_alive = move(other.is_alive);
+        is_availible = move(other.is_availible);
         return *this;
     }
 
@@ -56,7 +60,7 @@ namespace ariel{
         return this->name;
     }
 
-    Point Character::getLocation(){
+    Point Character::getLocation() const{
         return this->location;
     }
 
@@ -68,8 +72,8 @@ namespace ariel{
         return this->is_alive;
     }
 
-    bool Character::get_Is_leader(){
-        return this->is_leader;
+    bool Character::get_is_availible(){
+        return this->is_availible;
     }
 
     // Setters:
@@ -89,8 +93,8 @@ namespace ariel{
         this->is_alive = alive;
     }
 
-    void Character::setIs_leader(bool leader){
-        this->is_leader = leader;
+    void Character::set_is_availible(bool availible){
+        this->is_availible = availible;
     }
 
     // To string:
@@ -101,13 +105,12 @@ namespace ariel{
 
     // Checks if the character is alive
     bool Character::isAlive(){
-        if(this->is_alive == true)return true;
-        return false;
+        return this->is_alive;
     }
 
     // Calculates the distance to another character
     double Character::distance(const Character *other) const{
-        return this->location.distance(other->location);
+        return location.distance(other->getLocation());
     }
 
     // Decreases the character's hit points by a certain amount

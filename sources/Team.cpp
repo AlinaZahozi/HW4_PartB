@@ -14,11 +14,12 @@ namespace ariel{
     Team::Team(Character *leader):
     leader(leader){
         if (leader == nullptr) throw invalid_argument("Error: Leader is null");
-        if(leader->get_Is_leader() == true) throw ("Error: Leader is null");
+        if(leader->get_is_availible() == false) throw runtime_error("Error: Leader is null");
         team.fill(nullptr);
         players_number = 0;
+        alive = true;
         add(leader);
-        leader->setIs_leader(true);
+        leader->set_is_availible(false);
     }
 
     // Initializes a Team object as a copy of another
@@ -57,13 +58,21 @@ namespace ariel{
     void Team::add(Character* player){
         if(player == nullptr) throw invalid_argument("Player cannot be null.");
         if(this->players_number >= 10) throw overflow_error("Team is already full.");
+        if(player->get_is_availible() == false) throw runtime_error("Error: Leader is null");
         
         auto it = std::find(team.begin(), team.end(), nullptr);
         
         if(it != team.end()){
             *it = player;
             this->players_number ++;
+            player->set_is_availible(false);
         }
+    }
+    bool Team::get_alive(){
+        return this->alive;
+    }
+    void Team::is_dead(){
+        this->alive = false;
     }
 
     // Makes the team attack a rival team
@@ -71,22 +80,25 @@ namespace ariel{
 
         if(rival == nullptr)throw invalid_argument("Rival team cannot be null.");
 
-        if(this->stillAlive() == 0 || rival->stillAlive() == 0) return;  // No members left in one of the teams, end the attack
+        if(!rival->get_alive()) throw runtime_error("The game is already over");
 
         // Check if the leader is alive
         if(!this->leader->getIs_alive()){
             // If not, select a new leader
             double closest_distance = std::numeric_limits<double>::max();
-            for(auto& character : this->team){
-                if(character != nullptr && character->getIs_alive()){
-                    double distance = this->leader->getLocation().distance(character->getLocation());
+            size_t index = 0;
+            for (size_t i = 0; i < 10; i++){
+                if (team[i] != nullptr && team[i]->getIs_alive()){
+                    double distance = this->leader->getLocation().distance(team[i]->getLocation());
                     if(distance < closest_distance){
                         closest_distance = distance;
-                        this->leader = character;
+                        index = i;
                     }
                 }
             }
+        this->leader = team[index];
         }
+        
 
         // Select a victim from the rival team
         Character* victim = nullptr;
@@ -110,17 +122,25 @@ namespace ariel{
                     if(cowboy->getBullets() > 0) cowboy->shoot(victim);
                     else cowboy->reload();
                 }
-                else if(typeid(*character) == typeid(Ninja)){
-                    Ninja* ninja = static_cast<Ninja*>(character);
+                else if(typeid(*character) == typeid(OldNinja)){
+                    OldNinja* ninja = static_cast<OldNinja*>(character);
+                    if(ninja->getLocation().distance(victim->getLocation()) <= 1.0) ninja->slash(victim);
+                    else ninja->move(victim);
+                }
+                else if(typeid(*character) == typeid(YoungNinja)){
+                    YoungNinja* ninja = static_cast<YoungNinja*>(character);
+                    if(ninja->getLocation().distance(victim->getLocation()) <= 1.0) ninja->slash(victim);
+                    else ninja->move(victim);
+                }
+                else if(typeid(*character) == typeid(TrainedNinja)){
+                    TrainedNinja* ninja = static_cast<TrainedNinja*>(character);
                     if(ninja->getLocation().distance(victim->getLocation()) <= 1.0) ninja->slash(victim);
                     else ninja->move(victim);
                 }
             }
-
-            // If the victim is dead, choose a new victim
-            if(!victim->getIs_alive()){
-                victim = nullptr;
-                closest_distance = std::numeric_limits<double>::max();
+            if(rival->stillAlive() == 0) break;
+            if(!victim->isAlive()){
+                double closest_distance = std::numeric_limits<double>::max();
                 for(auto& character : rival->team){
                     if(character != nullptr && character->getIs_alive()){
                         double distance = this->leader->getLocation().distance(character->getLocation());
@@ -131,9 +151,10 @@ namespace ariel{
                     }
                 }
             }
-
-            // If there are no living members in the rival team, end the attack
-            if(rival->stillAlive() == 0) break;
+            
+        }
+        if(rival->stillAlive() == 0){
+            rival->is_dead();
         }
     }
 
@@ -143,7 +164,7 @@ namespace ariel{
         int ans = 0;
         for (size_t i = 0; i < 10; i++){
             if (team[i] != nullptr){
-                if(team[i]->getIs_alive() == true) ans++;
+               if(team[i]->isAlive()) ans++;
             }
         }
         return ans;

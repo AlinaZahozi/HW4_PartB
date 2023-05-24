@@ -28,13 +28,13 @@ namespace ariel {
     // Function for moving the ninja towards the rival character
     void Ninja::move(Character* rival) {
         // Check if the rival is null
-        if(rival == nullptr) throw std::invalid_argument("Rival cannot be null");
+        if(rival == nullptr) throw std::runtime_error("Rival cannot be null");
 
         // Check if the rival is already dead
-        if(!rival->getIs_alive()) throw std::invalid_argument("Rival is already dead");
+        if(!rival->getIs_alive()) throw std::runtime_error("Rival is already dead");
 
         // Check if the ninja is still alive
-        if(!this->getIs_alive()) throw std::invalid_argument("Ninja is already dead");
+        if(!this->getIs_alive()) throw std::runtime_error("Ninja is already dead");
 
         Point newLocation = this->location.moveTowards(this->location, rival->getLocation(), this->speed);
         this->setLocation(newLocation);
@@ -43,19 +43,23 @@ namespace ariel {
     // Function for the ninja to slash the rival character
     void Ninja::slash(Character* rival) {
         // Check if the rival is null
-        if(rival == nullptr) throw std::invalid_argument("Rival cannot be null");
+        if(rival == nullptr) throw std::runtime_error("Rival cannot be null");
+
+        if(rival == this) throw runtime_error("Error: No self harm");
 
         // Check if the rival is already dead
-        if(!rival->getIs_alive()) throw std::invalid_argument("Rival is already dead");
+        if(!rival->getIs_alive()) throw std::runtime_error("Rival is already dead");
 
         // Check if the ninja is still alive
-        if(!this->getIs_alive()) throw std::invalid_argument("Ninja is already dead");
+        if(!this->getIs_alive()) throw std::runtime_error("Ninja is already dead");
 
         // Calculate the distance to the rival
         double distanceToRival = this->distance(rival);
 
         // If the rival is less than 1 meter away, slash the rival
-        if(distanceToRival < 1.0) rival->hit(40);
+        if(distanceToRival <= 1.0) rival->hit(40);
+
+        if(rival->getHit_points() <= 0) rival->setIs_alive(false);
     }
 
     // To string:

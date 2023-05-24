@@ -42,7 +42,7 @@ namespace ariel{
     }
 
     // Calculates the distance to another point
-    double Point::distance(const Point &other) const {
+    double Point::distance(const Point& other) const {
         double xDiff = other.x_cordinta - this->x_cordinta;
         double yDiff = other.y_cordinta - this->y_cordinta;
         return sqrt(xDiff * xDiff + yDiff * yDiff);

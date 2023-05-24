@@ -9,11 +9,11 @@ namespace ariel{
 class Character {  
 
     protected:
-        string name;  // Private member variable for the character's name
-        Point location;  // Private member variable for the character's location
-        int hit_points;  // Private member variable for the character's hit points
-        bool is_alive;  // Private member variable for the character's alive status
-        bool is_leader;
+        string name;  // protected member variable for the character's name
+        Point location;  // protected member variable for the character's location
+        int hit_points;  // protected member variable for the character's hit points
+        bool is_alive;  // protected member variable for the character's alive status
+        bool is_availible;
 
     public:
         // Constructors:
@@ -33,17 +33,17 @@ class Character {
 
         // Getters:
         string getName();  // Returns the character's name
-        Point getLocation();  // Returns the character's location
+        Point getLocation() const;  // Returns the character's location
         int getHit_points();  // Returns the character's hit points
         bool getIs_alive();
-        bool get_Is_leader();
+        bool get_is_availible();
 
         // Setters:
         void setName(string);  // Sets the character's name
         void setLocation(Point);  // Sets the character's location
         void setHit_points(int);  // Sets the character's hit points
         void setIs_alive(bool);
-        void setIs_leader(bool);
+        void set_is_availible(bool);
 
         // To string:
         virtual string toString();  // Returns a string representation of the character

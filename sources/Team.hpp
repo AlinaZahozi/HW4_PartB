@@ -23,6 +23,7 @@ namespace ariel {
         array<Character*, MAXIMUM_PLAYERS> team; // Array to hold pointers to Character objects (team members)
         Character* leader; // Pointer to the Character object that is the team leader
         int players_number;
+        bool alive;
 
     public:
         // Constructor:
@@ -35,14 +36,15 @@ namespace ariel {
         Team(Team&& other) noexcept; // Initializes a Team object by moving another
 
         // Destructor:
-        ~Team(); // Destroys a Team object and releases any allocated resources
+        virtual ~Team(); // Destroys a Team object and releases any allocated resources
 
         // Copy Assignment Operator:
         Team& operator=(const Team& other); // Assigns the current Team object the same state as another
 
         // Move Assignment Operator:
         Team& operator=(Team&& other) noexcept; // Assigns the current Team object the same state as another by moving
-
+        bool get_alive();
+        void is_dead();
         // Member Functions:
         virtual void add(Character* player); // Adds a new player to the team
         virtual void attack(Team* rival); // Makes the team attack a rival team

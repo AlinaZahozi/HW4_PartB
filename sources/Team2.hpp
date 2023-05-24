@@ -15,12 +15,12 @@ using namespace std;
 
 namespace ariel {
 
-    constexpr int MAXIMUM_PLAYERS = 10; // Maximum number of players in a team
+    constexpr int MAXIMUM_PLAYERS_TEAM2 = 10; // Maximum number of players in a team
 
     class Team2 {
 
     protected:
-        array<Character*, MAXIMUM_PLAYERS> team; // Array to hold pointers to Character objects (team members)
+        array<Character*, MAXIMUM_PLAYERS_TEAM2> team; // Array to hold pointers to Character objects (team members)
         Character* leader; // Pointer to the Character object that is the team leader
         int players_number;
 

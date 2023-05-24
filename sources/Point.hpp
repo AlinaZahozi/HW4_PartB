@@ -33,7 +33,7 @@ class Point {
         void print();
 
         // Moves towards another point by a specified distance
-        Point moveTowards(const Point &src, const Point &dst, double dist) const;
+        static Point moveTowards(const Point &src, const Point &dst, double dist);
 };
 
 }

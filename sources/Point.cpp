@@ -55,7 +55,7 @@ namespace ariel{
     }
 
     // Moves towards another point by a specified distance
-    Point Point::moveTowards(const Point &src, const Point &dst, double dist) const {
+    Point Point::moveTowards(const Point &src, const Point &dst, double dist){
         // Throw an exception if the distance is negative.
         if (dist < 0) {
             throw std::invalid_argument("Distance cannot be negative");

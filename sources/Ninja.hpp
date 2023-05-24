@@ -35,10 +35,8 @@ namespace ariel {
             // Function for the ninja to slash the rival character
             void slash(Character* rival);
 
+            // To string
             string toString() override;
-
-            // Overriding the print function from the Character class to print the ninja
-            //string print() override;
 
             // Overriding the getType function from the Character class to get the type of the ninja
             const std::type_info& getType() const override;

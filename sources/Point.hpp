@@ -7,8 +7,8 @@ namespace ariel{
 
 class Point { 
     protected:
-        double x_cordinta;  // Private member variable for the x-coordinate
-        double y_cordinta;  // Private member variable for the y-coordinate
+        double x_cordinta;  // protected member variable for the x-coordinate
+        double y_cordinta;  // protected member variable for the y-coordinate
 
     public:
         // Constructors:

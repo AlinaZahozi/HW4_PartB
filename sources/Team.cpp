@@ -68,9 +68,13 @@ namespace ariel{
             player->set_is_availible(false);
         }
     }
+
+    // Get alive
     bool Team::get_alive(){
         return this->alive;
     }
+
+    // Set alive to false
     void Team::is_dead(){
         this->alive = false;
     }

@@ -43,9 +43,9 @@ namespace ariel{
 
     // Calculates the distance to another point
     double Point::distance(const Point& other) const {
-        double xDiff = other.x_cordinta - this->x_cordinta;
-        double yDiff = other.y_cordinta - this->y_cordinta;
-        return sqrt(xDiff * xDiff + yDiff * yDiff);
+        double calX = other.x_cordinta - this->x_cordinta;
+        double calY = other.y_cordinta - this->y_cordinta;
+        return sqrt(calX * calX + calY * calY);
     }
 
 
@@ -57,40 +57,32 @@ namespace ariel{
     // Moves towards another point by a specified distance
     Point Point::moveTowards(const Point &src, const Point &dst, double dist){
         // Throw an exception if the distance is negative.
-        if (dist < 0) {
-            throw std::invalid_argument("Distance cannot be negative");
-        }
+        if (dist < 0) throw invalid_argument("Distance cannot be negative");
 
-        double dx = dst.x_cordinta - src.x_cordinta;
-        double dy = dst.y_cordinta - src.y_cordinta;
+        double calX = dst.x_cordinta - src.x_cordinta;
+        double calY = dst.y_cordinta - src.y_cordinta;
 
-        double len = sqrt(dx * dx + dy * dy);
+        double len = sqrt(calX * calX + calY * calY);
 
-        // If the source and destination are the same, there's nowhere to move.
+        // If the source and destination are the same, there's nowhere to move
         if (len == 0) {
-            if (dist == 0) {
-                return src;
-            } else {
-                throw std::invalid_argument("Source and destination are the same, distance should be zero");
-            }
+            if (dist == 0) return src;
+            else throw invalid_argument("Source and destination are the same, distance should be zero");
         }
 
-        // Normalize the direction vector (dx, dy)
-        dx /= len;
-        dy /= len;
+        // Normalize the direction vector (calX, calY)
+        calX /= len;
+        calY /= len;
 
-        // Scale it by the desired distance and add to the source point.
-        double newX = src.x_cordinta + dx * dist;
-        double newY = src.y_cordinta + dy * dist;
+        // Scale it by the desired distance and add to the source point
+        double newX = src.x_cordinta + calX * dist;
+        double newY = src.y_cordinta + calY * dist;
 
-        // Check if the moved point is beyond the destination point.
+        // Check if the moved point is beyond the destination point
         double distSrcToMoved = sqrt(pow(newX - src.x_cordinta, 2) + pow(newY - src.y_cordinta, 2));
         double distSrcToDest = sqrt(pow(dst.x_cordinta - src.x_cordinta, 2) + pow(dst.y_cordinta - src.y_cordinta, 2));
 
-        if (distSrcToMoved > distSrcToDest) {
-            // The moved point is beyond the destination point, return the destination point
-            return dst;
-        }
+        if (distSrcToMoved > distSrcToDest) return dst; // The moved point is beyond the destination point, return the destination point
 
         return Point(newX, newY);
     }
